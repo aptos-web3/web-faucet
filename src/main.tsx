@@ -4,6 +4,8 @@ import { BrowserRouter as Router, useRoutes } from 'react-router-dom'
 import { ChakraProvider, SkeletonText, Box } from '@chakra-ui/react'
 import Layout from '@/components/Layout'
 
+import './main.css'
+
 import routes from '~react-pages'
 
 const Fallback = () => {
