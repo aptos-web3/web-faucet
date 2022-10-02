@@ -65,7 +65,7 @@ export default function CreateAccount () {
           <AlertDescription>
           Account will be created on the
           <Text display='inline' px={1} color='blue.500' fontWeight='bold'>{ settingStore.network }</Text>
-          network after the successful of faucet.
+          network after the first successful faucet.
           </AlertDescription>
         </Alert>
         <FormControl>
