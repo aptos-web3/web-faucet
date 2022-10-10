@@ -8,7 +8,6 @@ import {
 } from '@chakra-ui/react'
 import { debounce } from 'lodash-es'
 
-import useFaucet from '@/hooks/useFaucet'
 import useAccount from '@/hooks/useAccount'
 
 import Content from '@/components/Content'
@@ -20,9 +19,7 @@ export default function Faucet () {
     amount: '100000000'
   })
 
-  const { loading, fundAccount } = useFaucet()
-
-  const { loading: accountLoading, balance, getAccount } = useAccount(model.address)
+  const { loading, balance, getAccount, fundAccount } = useAccount(model.address)
 
   const handleChangeAmount = (event: any) => {
     const value = event.target.value
@@ -56,7 +53,7 @@ export default function Faucet () {
         </FormControl>
         <Button
           onClick={() => fundAccount(model)}
-          isLoading={accountLoading || loading}
+          isLoading={loading}
           colorScheme='pink'
         >
           Faucet

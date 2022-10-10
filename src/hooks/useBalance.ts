@@ -1,8 +1,39 @@
 import { useState, useEffect } from 'react'
+import { formatBalance } from '@/utils/balance'
 
 import useClient from './useClient'
 
-function useBalance (addresses: string[]) {
+export function useBalance (address: string, formatting?: boolean) {
+  const { restClient } = useClient()
+
+  const [balance, setBalance] = useState('')
+
+  const fetchData = async () => {
+    const result = await restClient.accountBalance(address)
+    if (result === null) return 0
+
+    return result
+  }
+
+  const refetch = () => {
+    fetchData()
+      .then((value) => {
+        const formatted = formatBalance(value)
+        setBalance(formatting ? formatted : value.toString())
+      }).catch(console.error)
+  }
+
+  useEffect(() => {
+    refetch()
+  }, [])
+
+  return {
+    balance,
+    refetch
+  }
+}
+
+export function useBalances (addresses: string[]) {
   const { restClient } = useClient()
 
   const initialState = addresses.reduce<Record<string, number>>((acc, address) => {
@@ -45,5 +76,3 @@ function useBalance (addresses: string[]) {
     refetch
   }
 }
-
-export default useBalance

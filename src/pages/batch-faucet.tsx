@@ -2,7 +2,7 @@ import { VStack, Button, Box, Tooltip, Text } from '@chakra-ui/react'
 
 import { useUserStore } from '@/stores/user'
 import { useSettingStore } from '@/stores/setting'
-import useBalance from '@/hooks/useBalance'
+import { useBalances } from '@/hooks/useBalance'
 import useFaucet from '@/hooks/useFaucet'
 import { Account } from '@/types/account'
 
@@ -16,7 +16,7 @@ export default function BatchFaucet () {
   const { network } = useSettingStore()
   const ACCOUNTS = useUserStore((state) => state.accounts).filter((account) => account.network === network)
 
-  const { balance, refetch } = useBalance(ACCOUNTS.map((item) => item.address))
+  const { balance, refetch } = useBalances(ACCOUNTS.map((item) => item.address))
   const { batchLoading, batchFundAccounts } = useFaucet()
 
   const accounts: Account[] = ACCOUNTS.map((account) => {
