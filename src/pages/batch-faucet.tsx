@@ -1,6 +1,7 @@
 import { VStack, Button, Box, Tooltip, Text } from '@chakra-ui/react'
 
 import { useUserStore } from '@/stores/user'
+import { useSettingStore } from '@/stores/setting'
 import useBalance from '@/hooks/useBalance'
 import useFaucet from '@/hooks/useFaucet'
 import { Account } from '@/types/account'
@@ -12,7 +13,8 @@ import RateLimitAlert from '@/components/RateLimitAlert'
 const tip = 'You don\'t have any accounts yet, please create accounts first.'
 
 export default function BatchFaucet () {
-  const ACCOUNTS = useUserStore((state) => state.accounts)
+  const { network } = useSettingStore()
+  const ACCOUNTS = useUserStore((state) => state.accounts).filter((account) => account.network === network)
 
   const { balance, refetch } = useBalance(ACCOUNTS.map((item) => item.address))
   const { batchLoading, batchFundAccounts } = useFaucet()

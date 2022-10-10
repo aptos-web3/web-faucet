@@ -38,7 +38,7 @@ function useBalance (addresses: string[]) {
 
   useEffect(() => {
     refetch()
-  }, [])
+  }, [JSON.stringify(addresses)])
 
   return {
     balance,
